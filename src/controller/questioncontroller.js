@@ -71,31 +71,56 @@ exports.updateQuestion = async (req, res) => {
 };
 
 exports.deleteQuestion = async (req, res) => {
-    const { questionId } = req.params;
+  const { questionId } = req.params;
 
-    try {
-        const deletedQuestion = await Question.findByIdAndDelete(questionId);
+  try {
+    const deletedQuestion = await Question.findByIdAndDelete(questionId);
 
-        if (!deletedQuestion){
-            return res.status(404).json({
-                status: "error",
-                message: "question not found.",
-            });
-        }
-
-        res.status(200).json({
-            status: "ok",
-            message: "Question deleted successfully.",
-        });
-    } catch (err){
-        res.status(500).json({
-            status: "error",
-            message: "server error",
-            error: err.message,
-        });
+    if (!deletedQuestion) {
+      return res.status(404).json({
+        status: "error",
+        message: "question not found.",
+      });
     }
+
+    res.status(200).json({
+      status: "ok",
+      message: "Question deleted successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: "server error",
+      error: err.message,
+    });
+  }
 };
 
+exports.getQuestion = async (req, res) => {
+  const { questionId } = req.params;
+
+  try {
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      return res.status(404).json({
+        status: "error",
+        message: "question not found.",
+      });
+    }
+    
+    res.status(200).json({
+      status: "ok",
+      question,
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: "server error",
+      error: err.message,
+    });
+  }
+};
 
 // exports.list
 
