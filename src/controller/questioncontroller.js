@@ -31,7 +31,44 @@ exports.createQuestion = async (req, res) => {
   }
 };
 
-// exports.update
+exports.updateQuestion = async (req, res) => {
+  const { questionId } = req.params;
+  const { question, choices, correctAnswer } = req.body;
+
+  try {
+    if (!question || !choices || !correctAnswer) {
+      return res.status(400).send({
+        status: "error",
+        message: "All fields (question, choices, correctAnswer) are required.",
+      });
+    }
+
+    const updatedQuestion = await Question.findOneAndUpdate(
+      { _id: questionId },
+      {
+        question,
+        choices,
+        correctAnswer,
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedQuestion) {
+      return res.status(404).json({ message: "Question not found." });
+    }
+
+    res.status(200).json({
+      message: "Question updated successfully",
+      question: updatedQuestion,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+};
 
 // exports.delete
 
