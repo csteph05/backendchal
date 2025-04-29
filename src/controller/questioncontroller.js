@@ -1,16 +1,42 @@
-    const db = require('../connection/dbconnection');
+const Question = require("../models/Questions");
 
-    exports.createQuestion (req, res) =>
-    {
-        
-    }
+exports.createQuestion = async (req, res) => {
+  const { question, choices, correctAnswer } = req.body;
 
-    exports.update
+  if (!question || !choices || !correctAnswer) {
+    return res.status(400).send({
+      status: "error",
+      message: "All fields (question, choices, correctAnswer) are required.",
+    });
+  }
+  try {
+    const newQuestion = new Question({
+      question,
+      choices,
+      correctAnswer,
+    });
 
-    exports.delete
+    const savedQuestion = await newQuestion.save();
 
-    exports.get
+    res.status(201).send({
+      status: "ok",
+      message: "Question created succesfully",
+      question: savedQuestion,
+    });
+  } catch (err) {
+    res.status(400).send({
+      status: "error",
+      message: err.message || "an error occurred while creating the question.",
+    });
+  }
+};
 
-    exports.list
+// exports.update
 
-    exports.checkAnswer
+// exports.delete
+
+// exports.get
+
+// exports.list
+
+// exports.checkAnswer
