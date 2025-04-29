@@ -70,9 +70,32 @@ exports.updateQuestion = async (req, res) => {
   }
 };
 
-// exports.delete
+exports.deleteQuestion = async (req, res) => {
+    const { questionId } = req.params;
 
-// exports.get
+    try {
+        const deletedQuestion = await Question.findByIdAndDelete(questionId);
+
+        if (!deletedQuestion){
+            return res.status(404).json({
+                status: "error",
+                message: "question not found.",
+            });
+        }
+
+        res.status(200).json({
+            status: "ok",
+            message: "Question deleted successfully.",
+        });
+    } catch (err){
+        res.status(500).json({
+            status: "error",
+            message: "server error",
+            error: err.message,
+        });
+    }
+};
+
 
 // exports.list
 
