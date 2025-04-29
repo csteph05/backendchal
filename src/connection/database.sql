@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS db_Quizzes;
+USE db_Quizzes;
+
+CREATE TABLE IF NOT EXISTS Questions (
+    quezId INT AUTO_INCREMENT PRIMARY KEY,
+    question TEXT NOT NULL,
+    choices JSON NOT NULL, 
+    correctAnswer VARCHAR(255) NOT NULL
+);
