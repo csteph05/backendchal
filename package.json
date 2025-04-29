@@ -8,9 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "app to create crud api using node, express and mysql",
+  "description": "app to create crud api using node, express and mongoDB",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mysql": "^2.18.1"
+    "mongoose": "^8.14.0"
   }
 }

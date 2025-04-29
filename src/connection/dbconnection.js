@@ -1,19 +1,17 @@
-const mysql = require("mysql");
+require("dotenv").config();
+const mongoose = require("mongoose");
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "backendchallenge",
-  database: "db_Quizzes",
-});
-
-db.connect((err) => {
-  if (err) {
-    console.error("Connection failed", err);
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB Connected");
+  } catch (err) {
+    console.error("MongoDB connection failed.", err.message);
     process.exit(1);
-  } else {
-    console.log("Connection Successful");
   }
-});
+};
 
-module.exports = db;
+module.exports = connectDB;

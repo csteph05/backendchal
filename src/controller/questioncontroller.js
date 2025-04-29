@@ -1,13 +1,16 @@
-const db = require('../connection/dbconnection');
+    const db = require('../connection/dbconnection');
 
-exports.create 
+    exports.createQuestion (req, res) =>
+    {
+        
+    }
 
-exports.update
+    exports.update
 
-exports.delete
+    exports.delete
 
-exports.get
+    exports.get
 
-exports.list
+    exports.list
 
-exports.checkAnswer
+    exports.checkAnswer
