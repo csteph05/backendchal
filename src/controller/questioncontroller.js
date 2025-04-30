@@ -123,21 +123,20 @@ exports.getQuestion = async (req, res) => {
 };
 
 exports.listQuestions = async (req, res) => {
-    try {
-        const questions = await Question.find();
+  try {
+    const questions = await Question.find();
 
-        res.status(200).json({
-            status: "ok",
-            count: question.length,
-            questions,
-        });
-    } catch (err){
-        res.status(500).json({
-            status: "error",
-            message: "Failed to fetch questions",
-            error: err.message,
-        });
-    }
+    res.status(200).json({
+      status: "ok",
+      count: question.length,
+      questions,
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to fetch questions",
+      error: err.message,
+    });
+  }
 };
-
 
