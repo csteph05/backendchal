@@ -108,7 +108,7 @@ exports.getQuestion = async (req, res) => {
         message: "question not found.",
       });
     }
-    
+
     res.status(200).json({
       status: "ok",
       question,
@@ -122,6 +122,22 @@ exports.getQuestion = async (req, res) => {
   }
 };
 
-// exports.list
+exports.listQuestions = async (req, res) => {
+    try {
+        const questions = await Question.find();
 
-// exports.checkAnswer
+        res.status(200).json({
+            status: "ok",
+            count: question.length,
+            questions,
+        });
+    } catch (err){
+        res.status(500).json({
+            status: "error",
+            message: "Failed to fetch questions",
+            error: err.message,
+        });
+    }
+};
+
+
