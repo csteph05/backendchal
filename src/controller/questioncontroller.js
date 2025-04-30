@@ -140,3 +140,45 @@ exports.listQuestions = async (req, res) => {
   }
 };
 
+exports.checkAnswer = async (req, res) => {
+  const { questionId } = req.params;
+  const { answer } = req.body;
+
+  try {
+    if (!answer) {
+      return res.status(400).json({
+        status: "error",
+        message: "Answer is required.",
+      });
+    }
+
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      return res.status(404).json({
+        status: "error",
+        message: "Question not found",
+      });
+
+      if (!question.choices.includes(answer)) {
+        return res.status(400).json({
+          status: "invalid",
+          message: "Answer is not one of the choices",
+        });
+      }
+
+      const isCorrect = answer === question.correctAnswer;
+
+      res.status(200).json({
+        status: isCorrect ? "correct" : "wrong",
+        message: isCorrect ? "Correct Answer!" : "Wrong Answer.",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      status: "error",
+      message: "Server error",
+      error: err.message,
+    });
+  }
+};
