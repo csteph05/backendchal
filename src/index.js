@@ -1,7 +1,8 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
+const connectDB = require("./connection/dbconnection");
 const questionRoutes = require("./router/questionRoutes");
 
 const app = express();
